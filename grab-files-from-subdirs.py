@@ -75,7 +75,7 @@ print(sys.argv)
 
 
 
-# search for -d
+# search for -d argument
 targetFolder = ""
 
 if "-d" in sys.argv:
@@ -123,7 +123,7 @@ files = get_files_recursive(targetPath)
 #print(files)
 
 
-# print all entries
+# print all entries if requested
 if listFiles == True:
 	for entry in files:
 		print(entry)
@@ -132,6 +132,7 @@ print(str(len(files)) + " files found")
 print("target folder for all found files: " + str(targetPath))
 
 
+# if copyFiles is requested then call the copy function
 if copyFiles == True:
 	copy_files_to_dir(files, targetFolder)
 
