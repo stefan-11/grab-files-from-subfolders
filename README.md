@@ -1,5 +1,5 @@
 # grab-files-from-subfolders
-Get all files from sub folders
+Get all files from sub folders and have them copied to a target folder
 
 ## Requirements
 Python 3.6
