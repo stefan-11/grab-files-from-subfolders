@@ -1,6 +1,9 @@
 # grab-files-from-subfolders
 Get all files from sub folders
 
+## Requirements
+Python 3.6
+
 ## Usage
 To show the target folder and the counter of files call without any arguments
 ```
