@@ -26,3 +26,8 @@ $python3.6 grab-files-from-subdirs.py -c
 ```
 
 You can also combine the arguments.
+
+## Todos:
+	- print help page when called without parameters
+	- check if file already exists at target dir
+	- add move option so that source files are removed after copying

@@ -12,7 +12,12 @@
 import sys
 from pathlib import Path
 import shutil
+import os
 
+###############################################################################
+### excludeList is an array containing files that should be ignored
+### Todo: allow wildcards
+###############################################################################
 excludeList = [".DS_Store"]
 
 ###############################################################################
@@ -51,12 +56,42 @@ def get_files_recursive(p):
 
 ###############################################################################
 ### copy files by list to targetFolder
+### Todo: check if target file already exists
 ###############################################################################
 def copy_files_to_dir(fileList, targetFolder):
 	for file in fileList:
-		print("file: " + str(file))
-		shutil.copy2(file, targetFolder)
+		print("source file: " + str(file))
+		length = len(file.parts)
+		index = length - 1
 
+		targetFile = Path(targetFolder)
+		targetFile = targetFile / file.parts[index]
+		print("target file: " + str(targetFile))
+		if os.path.isfile(targetFile) == True:
+			print("WARNING: target file already existing and will be ignored.")
+		else:
+			#print("copying")
+			shutil.copy2(file, targetFolder)
+
+
+###############################################################################
+### move files by list to targetFolder
+### Todo: check if target file already exists
+###############################################################################
+def move_files_to_dir(fileList, targetFolder):
+	for file in fileList:
+		print("source file: " + str(file))
+		length = len(file.parts)
+		index = length - 1
+
+		targetFile = Path(targetFolder)
+		targetFile = targetFile / file.parts[index]
+		print("target file: " + str(targetFile))
+		if os.path.isfile(targetFile) == True:
+			print("WARNING: target file already existing and will be ignored.")
+		else:
+			print("TODO: moving")
+			#shutil.move(file, targetFolder)
 
 
 
@@ -102,6 +137,11 @@ if targetFolder == "":
 print("targetFolder: " + targetFolder)
 
 
+# search for -h (help)
+showHelp = False
+if "-h" in sys.argv:
+	showHelp = True
+
 # search for -l (list files)
 listFiles = False
 if "-l" in sys.argv:
@@ -112,6 +152,24 @@ if "-l" in sys.argv:
 copyFiles = False
 if "-c" in sys.argv:
 	copyFiles = True
+
+# search for -m (move files)
+moveFiles = False
+if "-m" in sys.argv:
+	moveFiles = True
+
+# show help if requested
+if showHelp == True:
+	print("-d <directory> - specifies <directory> as the search and target directory.")
+	print("-l             - lists all file which are found in the search dir and its subdirs. This can be used to check what will happen when -c or -m is used.")
+	print("-c             - copies all the files to the target dir.")
+	print("-m             - moves all the files to the target dir.")
+	sys.exit(0)
+
+
+# if -m and -c is used together then abort with an error message
+if copyFiles == True and moveFiles == True:
+	sys.exit("ERROR: Please use only -c (copy) and -m (move).")
 
 
 #get the current path (for testing we use testordner)
@@ -136,6 +194,8 @@ print("target folder for all found files: " + str(targetPath))
 if copyFiles == True:
 	copy_files_to_dir(files, targetFolder)
 
-
+# if moveFiles is requested call the move function
+if moveFiles == True:
+	move_files_to_dir(files, targetFolder)
 
 
