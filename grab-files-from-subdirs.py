@@ -99,7 +99,11 @@ def move_files_to_dir(fileList, targetFolder):
 ### Directly Executed Script starts here
 ###############################################################################
 print(sys.version_info);
-print("Hello World")
+print("Parameters:")
+print("Use parameter -d <search-dir> to specify the search and target directory")
+print("Use parameter -l to list the file that were found")
+print("Use parameter - c to copy the files to the search/target dir. Without specifying this parameter nothing will be changed")
+
 
 # parse arguments
 # -d targetfolder is mapped to variable targetFolder or defaulted to the current folder
